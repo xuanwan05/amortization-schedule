@@ -3,14 +3,6 @@ import { FETCH_SCHEDULES, FETCH_SCHEDULES_INCREASE_PAGE, FETCH_SCHEDULES_DECREAS
 import schedules from '../../services/schedules.json'
 
 export const fetchSchedules = (values) => dispatch => {
-  // fetch('../../services/schedules.json')
-  //   .then(res => res.json())
-  //   .then(schedules => dispatch({
-  //     type: FETCH_SCHEDULES,
-  //     payload: schedules
-  //   })
-  //   )
-    console.log(values);
     fetch(`http://localhost:8080/allmonthlypayments?aAmountBorrowedIncents=${values.loanAmount*100}&aApr=${values.interestRate}&aInitialTermMonths=${values.years*12}`, {
       method: 'GET',  
       headers: {
