@@ -1,88 +1,33 @@
-import { FETCH_SCHEDULES, FETCH_SCHEDULES_INCREASE_PAGE, FETCH_SCHEDULES_DECREASE_PAGE,
-  RECEIVE_SCHEDULES, FETCH_SCHEDULES_ERROR, RESET_SCHEDULES } from '../types'
-import schedules from '../../services/schedules.json'
+import axios from 'axios'
+import { FETCH_SCHEDULES, START_FETCH_SCHEDULES, SCHEDULES_ERROR} from '../types'
 
-export const fetchSchedules = (values) => dispatch => {
-    fetch(`http://localhost:8080/allmonthlypayments?aAmountBorrowedIncents=${values.loanAmount*100}&aApr=${values.interestRate}&aInitialTermMonths=${values.years*12}`, {
-      method: 'GET',  
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(res => res.json())
-    .then(schedules => dispatch({
-      type: FETCH_SCHEDULES,
-      payload: schedules
-    })
-    )
-
-
-    // dispatch({
-    //   type: FETCH_SCHEDULES,
-    //   payload: schedules
-    // })
-}
-
-
-// export default (async function fetchSchedules (dispatch) {
-//     console.log("inside")
-//     fetch('../services/schedules.JSON')
-//       // .then(res => res.json())
-//       .then(schedules => dispatch({
-//         type: FETCH_SCHEDULES,
-//         payload: schedules || []
-//       }))
-
-// })
-
-
-export function fetchSchedulesNextPage() {
-  return async function(dispatch, getState) {
-    const state = getState();
-    dispatch({ type: FETCH_SCHEDULES_INCREASE_PAGE });
-    const page = state.schedules.page + 1;
-
-    dispatch({
-      type: FETCH_SCHEDULES
-    });
+export const fetchSchedules = (values) => async dispatch => {
+    dispatch({type: START_FETCH_SCHEDULES})
 
     try {
-      const response = await fetch(`/fetchSchedules?limit=50&offset=${(page - 1) * 50}`)
-        .then(res => res.json())
-        .then(schedules => dispatch({
-          type: FETCH_SCHEDULES,
-          payload: schedules
-        }));
+      const response = await axios({
+        methos:'get',
+        url: `http://localhost:8080/allmonthlypayments?aAmountBorrowedIncents=${values.loanAmount*100}&aApr=${values.interestRate}&aInitialTermMonths=${values.years*12}`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).catch((error) => 
+        error.response
+      )
 
-      if (response.data.error || !Array.isArray(response.data)) {
-        return dispatch(fetchSchedulesError(response.data));
-      }
-
-      return dispatch(receiveSchedules(response.data));
-    } catch (error) {
-      return dispatch(fetchSchedulesError(error.toString()));
+    if (response.data.error || !Array.isArray(response.data)) {
+      return dispatch(fetchSchedulesError(response.data));
     }
-  };
+
+    return dispatch({type: FETCH_SCHEDULES, payload: response.data})
+  } catch (error) {
+    return dispatch(fetchSchedulesError(error.toString()));
+  }
 }
-
-
-function receiveSchedules(schedules) {
-  return {
-    type: RECEIVE_SCHEDULES,
-    schedules,
-  };
-};
 
 function fetchSchedulesError(error) {
   return {
-    type: FETCH_SCHEDULES_ERROR,
+    type: SCHEDULES_ERROR,
     error,
   };
 };
-
-export function resetSchedules() {
-  return {
-    type: RESET_SCHEDULES,
-  };
-};
-
