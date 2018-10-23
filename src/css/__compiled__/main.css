@@ -1,0 +1,229 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%; }
+
+th {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  font-weight: 500;
+  text-transform: none;
+  font-family: sans-serif;
+  letter-spacing: 0.025em; }
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px; }
+
+tr:nth-child(even) {
+  background-color: #f5f7fa; }
+
+.btn {
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  display: block;
+  background-color: #0070ba;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  color: #fff;
+  font-size: 1em;
+  text-align: center;
+  font-weight: 700;
+  font-family: HelveticaNeue-Medium,"Helvetica Neue Medium",HelveticaNeue,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-shadow: none;
+  text-decoration: none;
+  -webkit-transition: background-color .4s ease-out;
+  -moz-transition: background-color .4s ease-out;
+  -o-transition: background-color .4s ease-out;
+  transition: background-color .4s ease-out;
+  -webkit-font-smoothing: antialiased; }
+  .btn:hover {
+    background-color: #005ea6; }
+
+.inputContainer {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: left; }
+  .inputContainer > span {
+    color: red;
+    background: url("../../images/error.png") no-repeat top left;
+    background-position: left;
+    background-size: 1.5em;
+    padding-left: 30px; }
+
+.errorMessage p {
+  margin: 0;
+  color: #fff; }
+
+.error {
+  padding: 0px; }
+
+.App {
+  padding: 20px; }
+  .App form {
+    padding: 42px 42px 36px;
+    border: 1px solid #eaeced;
+    overflow: hidden;
+    width: 460px;
+    position: relative;
+    margin: 0 auto; }
+    .App form .rowInput {
+      z-index: 1;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      margin: 0;
+      padding: 10px 20px; }
+      .App form .rowInput.error {
+        padding: 10px 20px 0px 20px; }
+        .App form .rowInput.error > .inputContainer > input {
+          border: 1px solid red; }
+      .App form .rowInput > label {
+        width: 12em;
+        text-align: left;
+        padding: 5px;
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        font-weight: 500;
+        text-transform: none;
+        font-family: 'PayPal-Sans', sans-serif;
+        letter-spacing: 0.025em; }
+      .App form .rowInput > span {
+        white-space: nowrap;
+        color: #600;
+        font-weight: bold;
+        padding: 5px;
+        margin-left: 5px; }
+        .App form .rowInput > span:before {
+          margin-right: 5px; }
+    .App form .errorMessage {
+      position: absolute;
+      padding: 10px;
+      height: 0;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      -khtml-border-radius: 4px;
+      border-radius: 4px;
+      background: #c72f38;
+      color: #fff;
+      transition: all .3s ease-out; }
+      .App form .errorMessage.show {
+        left: 15.7em;
+        right: 3.8em;
+        height: auto;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -khtml-border-radius: 4px;
+        border-radius: 4px;
+        text-align: left; }
+      .App form .errorMessage p {
+        color: white;
+        font-weight: normal;
+        font-size: 1em; }
+    .App form input {
+      flex: 1;
+      padding: 5px 8px;
+      border: 1px solid #ddd;
+      border-radius: 2px; }
+    .App form button {
+      margin: 10px; }
+    .App form.submitting {
+      cursor: wait !important; }
+    .App form.add:before {
+      margin-right: 5px; }
+  .App hr {
+    margin: 20px; }
+  .App p {
+    color: #0070ba;
+    font-weight: bold;
+    font-size: 2em; }
+
+.paginator {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  display: flex;
+  height: 32px;
+  line-height: 30px;
+  overflow: hidden; }
+  .paginator .paginator-input {
+    border-right: 1px solid #ddd;
+    height: 30px;
+    overflow: hidden;
+    padding: 0 16px; }
+  .paginator a,
+  .paginator .paginator-control {
+    background: #f7f7f7;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.1s;
+    width: 90px;
+    font-weight: bold; }
+    .paginator a:hover,
+    .paginator .paginator-control:hover {
+      background: white;
+      color: #00afd7; }
+    .paginator a i,
+    .paginator .paginator-control i {
+      line-height: 30px; }
+    .paginator a:last-child,
+    .paginator .paginator-control:last-child {
+      border-left: 1px solid #ddd; }
+    .paginator a.paginator-buttonDisabled,
+    .paginator .paginator-control.paginator-buttonDisabled {
+      color: #ddd;
+      pointer-events: none; }
+
+.fullWidthTablePaginator {
+  display: flex;
+  height: 36px; }
+  .fullWidthTablePaginator .fullWidthTablePaginator-input {
+    background: white;
+    border-radius: 50px 0 0 50px;
+    border: 2px solid #c5cdd1;
+    border-right: 0;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: 36px;
+    line-height: 34px;
+    overflow: hidden;
+    padding: 0 12px; }
+  .fullWidthTablePaginator a {
+    background: #c5cdd1;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    width: 32px; }
+    .fullWidthTablePaginator a:first-of-type {
+      border-right: 1px solid rgba(0, 0, 0, 0.08); }
+    .fullWidthTablePaginator a:last-of-type {
+      border-radius: 0 50px 50px 0; }
+    .fullWidthTablePaginator a:hover {
+      background: #ced4d8; }
+    .fullWidthTablePaginator a i {
+      line-height: 36px; }
+
+.paginator-control {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.paginator-controlIcon {
+  height: 12px; }
