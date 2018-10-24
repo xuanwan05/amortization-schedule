@@ -2,29 +2,36 @@ import React from 'react'
 import { reduxForm, Field } from 'redux-form'
 import {fetchSchedules} from '../redux/loanCalculation/actions'
 
-const positiveInteger = value =>
-  Number(value) === value && value % 1 === 0 && value > 0 ? 'Must be a whole number' : undefined
-
-const required = value => (value || typeof value === 'number' ? undefined : 'Required')
-
-const positiveNumber = value =>
-  Number(value) === value && value % 1 !== 0 && value > 0 ? 'Must be positive number' : undefined
-
 const validate = values => {
   const errors = {};
   if (!values.loanAmount) {
     errors.loanAmount = 'Required'
+  } else if (isNaN(Number(values.loanAmount))) {
+    errors.loanAmount = 'Must be a number'
+  } else if (values.loanAmount > 9999999999999999.99 || values.loanAmount <= 0) {
+    errors.loanAmount = "Must be between 0.01 and 9999999999999999.99"
   }
+
   if (!values.interestRate) {
     errors.interestRate = 'Required'
+  } else if (isNaN(Number(values.interestRate))) {
+    errors.interestRate = 'Must be a number'
+  } else if (values.interestRate > 100.00 || values.interestRate < 0.000001) {
+    errors.interestRate = 'Must be between 0.000001 and 100.00' 
   }
+  
   if (!values.years) {
     errors.years = 'Required'
+  } else if (isNaN(Number(values.years))) {
+    errors.years = 'Must be a integer'
+  } else if (!/^\d+$/.test(values.years)) {
+    errors.years = 'Must be a integer'
+  } else if (values.years < 1 || values.years > 1000000) {
+    errors.years = 'Must be between 1 and 1000000'
   }
   return errors;
 }
 
-// const renderField = render => ({input, meta, label, ...rest}) =>
 const renderField = ({input, label, placeholder,meta:{ touched, error, warning }}) =>
   <>
     <div
@@ -32,7 +39,6 @@ const renderField = ({input, label, placeholder,meta:{ touched, error, warning }
         error && touched ? 'error rowInput' : 'rowInput'
       }>
       <label>{label}</label>
-      {/* {render(input, label, rest)} */}
       <div className='inputContainer'>
         <input {...input} placeholder={placeholder} type='number'  />
         {touched &&
@@ -40,17 +46,7 @@ const renderField = ({input, label, placeholder,meta:{ touched, error, warning }
             (warning && <span>{warning}</span>))}
       </div>
     </div>
-    {/* {(meta.error && meta.touched) &&
-    <div className='errorMessage show'>
-      <p className='emptyError'>Required</p>
-    </div>
-    } */}
   </>
-
-
-// const RenderInput = createRenderer(input => 
-//   <input {...input}/>
-// )
 
 function submit(values, dispatch) {
   return dispatch(fetchSchedules(values));
@@ -61,9 +57,9 @@ let ScheduleForm = ({ handleSubmit, submitting }) =>
     <header>
       <p>Loan Calculator</p>
     </header>
-    <Field name='loanAmount' label='Loan Amount' step='any' placeholder='0.00'  min="0.00" component={renderField} validate={[required]}/>
-    <Field name='interestRate' label='Interest Rate (per Year)' step='any' min="0.00" placeholder='0.00' component={renderField} validate={[required, positiveNumber]}/>
-    <Field name='years' label='Years' type='number' step="any" min="0"  pattern='^\d+$' placeholder='0' component={renderField} validate={[required, positiveInteger]}/>
+    <Field name='loanAmount' label='Loan Amount' step='any' placeholder='0.00'  min="0.01" component={renderField}/>
+    <Field name='interestRate' label='Interest Rate (per Year)' step='any' min="0.01" placeholder='0.00' component={renderField}/>
+    <Field name='years' label='Years' type='number' step="any" min="1"  placeholder='0' component={renderField}/>
     <button className='btn' type='submit' disabled={submitting}>Submit</button>
   </form>
 
@@ -71,9 +67,9 @@ let ScheduleForm = ({ handleSubmit, submitting }) =>
 ScheduleForm = reduxForm({
   // a unique name for this form
   form: 'scheduleForm',
-  destroyOnUnmout: false
-  // validate
+  destroyOnUnmout: false,
+  //validation function given to redux-form
+  validate 
 })(ScheduleForm)
-
 
 export default ScheduleForm

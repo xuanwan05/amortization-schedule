@@ -15,7 +15,8 @@ export const fetchSchedules = (values) => async dispatch => {
         error.response
       )
 
-    if (response.data.error || !Array.isArray(response.data)) {
+
+    if (response.data.error) {
       return dispatch(fetchSchedulesError(response.data));
     }
 

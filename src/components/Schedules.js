@@ -4,14 +4,12 @@ import {fetchSchedules} from '../redux/loanCalculation/actions'
 
 class Schedules extends Component {
   buildLoading() {
-    console.log("loading")
     return (
       <div className='m-vertical--40 loader--newtonsCradle'></div>
     )
   }
 
   buildTable() {
-    console.log("table " + this.props.schedules.schedules.length)
     if (this.props.schedules.schedules.length > 0) {
       return (
         <>
