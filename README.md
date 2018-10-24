@@ -1,16 +1,5 @@
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](#running-tests) for more information.
+To get the frontend running locally:
+* Clone this repo
+* npm install to install all req'd dependencies
+* npm start to start the local server (this project uses create-react-app)
+Local web server will use port 4000 instead of standard React's port 3000 
