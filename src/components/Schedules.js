@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux';
+import {connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {fetchSchedules} from '../redux/loanCalculation/actions'
 
 class Schedules extends Component {
@@ -50,6 +51,10 @@ class Schedules extends Component {
       </>
     )}
   }
+
+Schedules.proptypes = {
+  schedules: PropTypes.array
+}
 
 function mapStateToProps(state) {
   return {
